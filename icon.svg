@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Model Retry Policy">
+  <title>模型重试策略</title>
+  <defs>
+    <linearGradient id="dshRetryPolicyStroke" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4C8DFF"/>
+      <stop offset="1" stop-color="#7A5CFF"/>
+    </linearGradient>
+  </defs>
+  <path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="url(#dshRetryPolicyStroke)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M20 4v4.5h-4.5" stroke="url(#dshRetryPolicyStroke)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="12" cy="12" r="2.6" stroke="url(#dshRetryPolicyStroke)" stroke-width="1.6"/>
+  <path d="M12 8.4V12l2.6 1.6" stroke="url(#dshRetryPolicyStroke)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

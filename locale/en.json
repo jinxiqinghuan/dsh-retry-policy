@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "title": "Model Retry Policy",
+    "description": "Takes over model-request retries: configure the retry budget (including unlimited) and the wait strategy (fixed/linear/exponential backoff with jitter) from a settings page, effective on save."
+  },
+  "page": {
+    "title": "Model Retry Policy",
+    "subtitle": "Retry budget and wait strategy for failed model requests"
+  }
+}

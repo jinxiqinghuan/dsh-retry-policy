@@ -1,0 +1,47 @@
+# ============================================================================
+# dsh-retry-policy —— DSH bundle patch
+# ============================================================================
+# 这个补丁做两件事：
+#   ① 关掉官方内置的重试执行器 `@deepseek-ai/dsh-llm-retry`（它固定“最多 5 次”，
+#      且策略写死在每个 provider 适配器的配置里，运行期改不了）；
+#   ② 插入本插件的宿主行，由它接管 `agent/request-error` 瀑布，按用户配置的
+#      “重试次数 + 等待时间策略”执行重试，并继续写官方同款的
+#      `llm/retry` / `llm/retry-started` 事件与 `llmRetry` 投影（会话界面零改动）。
+#
+# 说明：
+#   · insert 行的 name 必须是**裸包名**，否则客户端半边不会被携带；
+#   · 本文件里的 config 是**默认值**，用户保存设置后由 configEditor 写进
+#     profile 的 cordis.patch.yml（用户层优先级更高，会覆盖这里的值）。
+# ============================================================================
+
+# ① 关闭官方内置重试器（按 patchId 覆盖）
+- id: llm-retry
+  disabled: true
+
+# ② 挂载本插件
+- insert:
+    - id: dsh-retry-policy
+      name: dsh-retry-policy
+      config:
+        enabled: true
+        # inherit = 沿用提供方策略的模式（默认 normal/有限次）；always = 强制无限重试
+        mode: inherit
+        # 有限模式下的最大重试次数（不含首次请求）
+        maxRetries: 10
+        # 等待策略：exponential（指数）/ linear（线性）/ fixed（固定间隔）
+        strategy: exponential
+        initialDelayMs: 1000
+        maxDelayMs: 60000
+        # 指数策略的增长倍数
+        multiplier: 2
+        # 抖动比例 0~1（0 = 不抖动）
+        jitterRatio: 0.1
+        # 参与重试的失败码
+        retryableCodes:
+          - EMPTY_RESPONSE
+          - RATE_LIMIT
+          - SERVER
+          - TIMEOUT
+          - TRANSPORT
+        # 提供方给了 Retry-After 且不超过 maxDelayMs 时，优先听提供方的
+        respectRetryAfter: true

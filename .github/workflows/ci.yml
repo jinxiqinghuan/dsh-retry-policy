@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Syntax + tests (Node 22)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # devDependencies 只服务客户端 DOM 行为测试（jsdom/react/react-dom）；插件运行时零依赖
+      - name: Install dev dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Syntax check
+        run: npm run check
+
+      - name: Unit tests
+        run: npm test
+
+      # 确认包里该带的东西都在（lib / patch / client / icon / locale）
+      - name: Package content dry-run
+        run: npm pack --dry-run

@@ -1,0 +1,6 @@
+# 统一以 LF 入库，避免 macOS/Windows 的换行差异把 diff 弄脏
+* text=auto eol=lf
+
+*.svg text
+*.png binary
+*.jpg binary

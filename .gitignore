@@ -1,0 +1,19 @@
+# 依赖（本插件零运行时依赖，只有本地开发时才可能出现）
+node_modules/
+
+# 验收产物：机器相关（含本机 profile 快照与绝对路径），由 verification/scripts 重新生成
+verification/artifacts/
+
+# 覆盖率 / 日志 / 系统垃圾
+coverage/
+*.log
+.DS_Store
+
+# 编辑器
+.idea/
+.vscode/
+*.swp
+
+# 本地环境变量
+.env
+.env.*
