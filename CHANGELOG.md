@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- 发布到 npm（`dsh-retry-policy@0.1.1`），安装不再需要源码构建授权。
+- 打包补上设置页截图（`docs/settings-overview.png`），npm 主页 README 正常显示。
+- README 增加 npm 安装方式、英文简介与 Star 提示；补充关键词。
+
 ## 0.1.0
 
 - 首个版本：接管 DSH 的模型请求失败重试执行器（bundle patch 关闭内置

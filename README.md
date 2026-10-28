@@ -9,6 +9,10 @@
 > DSH（DeepSeek Harness）插件：**接管模型请求失败后的重试**，把「重试几次」和
 > 「每次等多久」变成设置页里随时可改、保存即生效的策略，而不是适配器注册时写死的
 > 5 次 + 固定指数退避。
+>
+> **English** — A configurable retry policy for DeepSeek Harness: retry budget,
+> backoff curve, failure codes and `Retry-After`, applied from a settings page
+> without restart. Plain JavaScript, no build step, MIT.
 
 ![DSH 设置 → 模型重试策略](docs/settings-overview.png)
 
@@ -25,6 +29,8 @@
 - **界面零改动**：继续写官方同款的 `llm/retry` / `llm/retry-started` 事件与 `llmRetry`
   会话投影，会话气泡、轨迹视图、会话格式迁移都不用改。
 - **纯 JavaScript**：无构建步骤、无第三方运行时依赖、不访问外网。
+
+如果它帮你扛过一次 429 / 超时，点个 ⭐ 就是最好的支持。
 
 ## 目录
 
@@ -73,19 +79,31 @@ bundle patch:
 
 ## 2. 安装
 
-### 2.1 从 GitHub 安装（推荐）
+### 2.1 从 npm 安装（推荐）
 
 ```bash
 # 方式一：让 Agent 用插件管理器装（自动加进 profile 的 bundle 列表）
-#   plugin_manager { action: "install_bundle", target: "github:jinxiqinghuan/dsh-retry-policy#v0.1.0" }
+#   plugin_manager { action: "install_bundle", target: "dsh-retry-policy@0.1.1" }
 
 # 方式二：dsh CLI
-dsh plugin --profile desktop add "github:jinxiqinghuan/dsh-retry-policy#v0.1.0"
+dsh plugin --profile desktop add dsh-retry-policy@0.1.1
+```
+
+- 预构建安装，不需要 `allowBuilds` 构建授权；想跟最新版本可去掉版本号，生产环境建议锁版本。
+
+### 2.1.1 从 GitHub 安装
+
+```bash
+# 方式一：让 Agent 用插件管理器装（自动加进 profile 的 bundle 列表）
+#   plugin_manager { action: "install_bundle", target: "github:jinxiqinghuan/dsh-retry-policy#v0.1.1" }
+
+# 方式二：dsh CLI
+dsh plugin --profile desktop add "github:jinxiqinghuan/dsh-retry-policy#v0.1.1"
 ```
 
 - 仓库所属 GitHub 用户名为 `jinxiqinghuan`；fork / 迁移后把上面的用户名换掉即可。
-- 建议锁定版本（`#v0.1.0`）；想跟最新代码就去掉 `#v0.1.0`。
-- 安装时先做 GitHub 连接检查，再交给 pnpm；网络受限时先配好代理。
+- 建议锁定版本（`#v0.1.1`）；想跟最新代码就去掉版本后缀。
+- 从源码安装时，安装器会先做 GitHub 连接检查，再交给 pnpm；网络受限时先配好代理。
 - 装完刷新页面（⌘R）——客户端半边需要页面重载一次才会出现在「设置」里。
 
 ### 2.2 本地开发安装

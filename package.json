@@ -1,7 +1,7 @@
 {
   "name": "dsh-retry-policy",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "private": false,
   "type": "module",
   "description": "模型失败重试策略：接管 DSH 模型请求重试，自定义重试次数与等待时间策略（固定/线性/指数 + 抖动），并在设置页可视化配置，即时生效。",
   "main": "lib/host.js",
@@ -17,6 +17,7 @@
     "cordis.patch.yml",
     "icon.svg",
     "locale/*.json",
+    "docs/settings-overview.png",
     "README.md",
     "SPEC.md",
     "CHANGELOG.md",
@@ -41,6 +42,9 @@
     "deepseek-harness",
     "retry",
     "backoff",
+    "retry-policy",
+    "exponential-backoff",
+    "rate-limit",
     "重试",
     "退避"
   ],
